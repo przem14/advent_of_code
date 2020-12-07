@@ -1,9 +1,10 @@
 class Data:
     def __init__(self, line):
-        tokens = line.split(' ')
-        [self.x, self.y] = [int(x) for x in tokens[0].split('-')]
+        tokens = line.split(" ")
+        [self.x, self.y] = [int(x) for x in tokens[0].split("-")]
         self.char = tokens[1][0]
         self.string = tokens[2]
+
 
 def read_input(filename):
     data = []
@@ -18,7 +19,9 @@ def solve_first(data):
 
 
 def solve_second(data):
-    return [int((d.string[d.x - 1] == d.char) ^ (d.string[d.y - 1] == d.char)) for d in data].count(1)
+    return [
+        int((d.string[d.x - 1] == d.char) ^ (d.string[d.y - 1] == d.char)) for d in data
+    ].count(1)
 
 
 if __name__ == "__main__":
@@ -26,4 +29,3 @@ if __name__ == "__main__":
 
     print("1st result: #{}".format(solve_first(data)))
     print("2nd result: #{}".format(solve_second(data)))
-

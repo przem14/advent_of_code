@@ -1,3 +1,6 @@
+import functools
+
+
 def read_input(filename):
     contains = {}
     with open(filename) as file:
@@ -14,12 +17,13 @@ def read_input(filename):
 
 def dfs(graph, memoize, default, func):
     def dfs_internal(b):
-        if memoize[b] is not None:
-            return memoize[b]
-        memoize[b] = default
-        for [d, u] in graph[b]:
-            memoize[b] = func(d, memoize[b], dfs_internal(u))
-        return memoize[b]
+        return (
+            memoize[b]
+            if memoize[b] is not None
+            else functools.reduce(
+                lambda x, y: func(y[0], x, dfs_internal(y[1])), graph[b], default
+            )
+        )
 
     for v in graph.keys():
         dfs_internal(v)
